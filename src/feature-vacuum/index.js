@@ -11,9 +11,12 @@ module.exports = ({ registerAction }) => {
       const log = getContext('logger');
       const delay = getConfig('vacuum.delay');
       const interval = getConfig('vacuum.interval');
-      const rules = getConfig('vacuum.rules');
+      let rules = getConfig('vacuum.rules');
       const isPruneEnabled = getConfig('vacuum.prune.enabled');
       const pruneVolumes = getConfig('vacuum.prune.volumes');
+      
+      if (typeof rules === 'string')
+        rules = JSON.parse(rules)
 
       log.info(`docker-vacuum config`, {
         rules,
